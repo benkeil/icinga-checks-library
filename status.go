@@ -21,6 +21,15 @@ const (
 	ServiceStatusUnknown
 )
 
+var statusMap = map[string]Status{
+	"OK":       ServiceStatusOk,
+	"WARNING":  ServiceStatusWarning,
+	"CRITICAL": ServiceStatusCritical,
+	"UNKNOWN":  ServiceStatusUnknown,
+	"UP":       HostStatusUp,
+	"DOWN":     HostStatusDown,
+}
+
 // Ordinal returns the int value
 func (s Status) Ordinal() int {
 	return int(s)
@@ -38,6 +47,15 @@ func (s Status) String() string {
 	}
 
 	return names[s]
+}
+
+// NewStatus return a Status for a given string
+func NewStatus(statusString string) Status {
+	status, found := statusMap[statusString]
+	if found {
+		return status
+	}
+	panic("invalid icinga.Status")
 }
 
 // ServiceStatusForEscalationLevel returns a Status for a given EscalationLevel
