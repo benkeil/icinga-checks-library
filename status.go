@@ -39,3 +39,31 @@ func (s Status) String() string {
 
 	return names[s]
 }
+
+// ServiceStatusForEscalationLevel returns a Status for a given EscalationLevel
+func ServiceStatusForEscalationLevel(level EscalationLevel) Status {
+	switch level {
+	case None:
+		return ServiceStatusOk
+	case Warning:
+		return ServiceStatusWarning
+	case Critical:
+		return ServiceStatusCritical
+	default:
+		return ServiceStatusUnknown
+	}
+}
+
+// HostStatusForEscalationLevel returns a Status for a given EscalationLevel
+func HostStatusForEscalationLevel(level EscalationLevel) Status {
+	switch level {
+	case None:
+		return HostStatusUp
+	case Warning:
+		return HostStatusUp
+	case Critical:
+		return HostStatusDown
+	default:
+		return HostStatusDown
+	}
+}
