@@ -2,6 +2,7 @@ package icinga
 
 import (
 	"fmt"
+	"os"
 )
 
 type (
@@ -53,4 +54,9 @@ func (r *resultImpl) Message() string {
 
 func (r *resultImpl) String() string {
 	return fmt.Sprintf("{name: %s, state: %s, message: %s}", r.name, r.status, r.message)
+}
+
+func (r *resultImpl) Exit() {
+	fmt.Printf("%s: %s\n", r.Status(), r.Message())
+	os.Exit(r.Status().Ordinal())
 }
