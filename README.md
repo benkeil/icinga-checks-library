@@ -16,23 +16,24 @@ func run() Result {
     value := getActualValue()
 
     // check escalation
-    e, err := NewEscalation(warningThresholdString, criticalThresholdString)
+    e, err := icinga.NewEscalation(warningThresholdString, criticalThresholdString)
     if err != nil {
-        t.Fatalf("failed to initialize escalation: %v", err)
+        fmt.Errorf("failed to initialize escalation: %v", err)
     }
+    // get the escalation level
     level := e.Check(value)
 
     // If everything is ok and you have a service check
-    if level == None {
-        return NewResultOk("MyCheck")
+    if level == icinga.None {
+        return icinga.NewResultOk("MyCheck")
     }
 
     // If the level is critical and you have a host check
-    if level == Critical {
-        return NewResult("MyCheck", HostStatusDown, "your message")
+    if level == icinga.Critical {
+        return icinga.NewResult("MyCheck", icinga.HostStatusDown, "your message")
     }
 
     // the easiest way
-    return NewResult("MyCheck", ServiceStatusForEscalationLevel(level), "your message")
+    return icinga.NewResult("MyCheck", icinga.ServiceStatusForEscalationLevel(level), "your message")
 }
 ```
