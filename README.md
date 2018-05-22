@@ -8,7 +8,7 @@ The general usage pattern looks like this::
 
 ```go
 func run() Result {
-    // defined thresholds acording to https://nagios-plugins.org/doc/guidelines.html
+    // defined thresholds according to https://nagios-plugins.org/doc/guidelines.html
     warningThresholdString := "5:"
     criticalThresholdString := "2:"
 
