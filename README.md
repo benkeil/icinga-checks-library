@@ -7,7 +7,7 @@ Library to implement nagios checks in Go (golang).
 The general usage pattern looks like this::
 
 ```go
-func main() {
+func run() Result {
     // defined thresholds acording to https://nagios-plugins.org/doc/guidelines.html
     warningThresholdString := "5:"
     criticalThresholdString := "2:"
@@ -24,15 +24,15 @@ func main() {
 
     // If everything is ok and you have a service check
     if level == None {
-        // return NewResultOk("MyCheck")
+        return NewResultOk("MyCheck")
     }
 
     // If the level is critical and you have a host check
     if level == Critical {
-        // return NewResult("MyCheck", HostStatusDown, "your message")
+        return NewResult("MyCheck", HostStatusDown, "your message")
     }
 
     // the easiest way
-    // return NewResult("MyCheck", ServiceStatusForEscalationLevel(level), "your message")
+    return NewResult("MyCheck", ServiceStatusForEscalationLevel(level), "your message")
 }
 ```
