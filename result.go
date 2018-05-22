@@ -11,6 +11,7 @@ type (
 		Name() string
 		Status() Status
 		Message() string
+		Exit()
 	}
 
 	resultImpl struct {
@@ -56,6 +57,7 @@ func (r *resultImpl) String() string {
 	return fmt.Sprintf("{name: %s, state: %s, message: %s}", r.name, r.status, r.message)
 }
 
+// Exit prints the check result and exits the program
 func (r *resultImpl) Exit() {
 	fmt.Printf("%s: %s\n", r.Status(), r.Message())
 	os.Exit(r.Status().Ordinal())
