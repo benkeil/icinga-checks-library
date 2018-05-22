@@ -19,6 +19,11 @@ type (
 	}
 )
 
+const (
+	// DefaultSuccessMessage the default message if the check was successful
+	DefaultSuccessMessage string = "everything ok"
+)
+
 // NewResult creates a new instance of Result
 func NewResult(name string, status Status, message string) Result {
 	return &resultImpl{name, status, message}
@@ -26,7 +31,7 @@ func NewResult(name string, status Status, message string) Result {
 
 // NewResultOk creates a new instance of Result and set result to ServiceStateOk
 func NewResultOk(name string) Result {
-	return &resultImpl{name, ServiceStatusOk, "everything ok"}
+	return &resultImpl{name, ServiceStatusOk, DefaultSuccessMessage}
 }
 
 // NewResultOkMessage creates a new instance of Result and set result to ServiceStateOk
