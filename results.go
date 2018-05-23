@@ -85,7 +85,7 @@ var resultOrder = []Status{
 
 // Exit prints the check result and exits the program
 func (r *resultsImpl) Exit() {
-	fmt.Println(r)
+	fmt.Print(r)
 	os.Exit(r.CalculateStatus().Ordinal())
 }
 
