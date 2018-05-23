@@ -13,8 +13,6 @@ func TestSomething(t *testing.T) {
 		{ServiceStatusWarning, 1},
 		{ServiceStatusCritical, 2},
 		{ServiceStatusUnknown, 3},
-		{HostStatusUp, 0},
-		{HostStatusDown, 2},
 	}
 	for _, test := range tests {
 		t.Logf("Status(%v) is %d", test.value, test.value)

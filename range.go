@@ -101,3 +101,7 @@ func (r *rangeImpl) CheckInt(val int) bool {
 func (r *rangeImpl) CheckInt32(val int32) bool {
 	return r.Check(float64(val))
 }
+
+func (r *rangeImpl) CheckValue(val interface{}) bool {
+	return r.Check(val.(float64))
+}
