@@ -41,6 +41,11 @@ func NewResultOkMessage(name string, message string) Result {
 	return &resultImpl{name, ServiceStatusOk, message}
 }
 
+// NewResultUnknownMessage creates a new instance of Result and set result to ServiceStateOk
+func NewResultUnknownMessage(name string, message string) Result {
+	return &resultImpl{name, ServiceStatusUnknown, message}
+}
+
 func (r *resultImpl) Name() string {
 	return r.name
 }
@@ -54,7 +59,7 @@ func (r *resultImpl) Message() string {
 }
 
 func (r *resultImpl) String() string {
-	return fmt.Sprintf("{name: %s, state: %s, message: %s}", r.name, r.status, r.message)
+	return fmt.Sprintf("{name: %s, status: %s, message: %s}", r.name, r.status, r.message)
 }
 
 // Exit prints the check result and exits the program

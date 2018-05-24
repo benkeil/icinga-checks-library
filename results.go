@@ -66,7 +66,7 @@ func (r *resultsImpl) All() []Result {
 	return values
 }
 
-// CalculateStatus calculates the service state for multiple checks
+// CalculateStatus calculates the service status for multiple checks
 func (r *resultsImpl) CalculateStatus() Status {
 	return r.statusPolicy.Calculate(r)
 }

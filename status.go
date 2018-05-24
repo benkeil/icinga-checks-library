@@ -1,6 +1,6 @@
 package icinga
 
-// Status defines the host state
+// Status defines the service status
 type Status int
 
 const (

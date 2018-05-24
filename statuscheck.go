@@ -69,3 +69,12 @@ func (e *statusCheckImpl) Compare(value func() bool) Status {
 	}
 	return ServiceStatusOk
 }
+
+// Compare evaluates a clousre and return the Status parsed from the
+// result string
+func (e *statusCheckImpl) CompareBoolean(value bool) Status {
+	if value {
+		return NewStatus(e.result)
+	}
+	return ServiceStatusOk
+}
