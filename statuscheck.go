@@ -9,6 +9,7 @@ type (
 		CheckInt(int) Status
 		CheckInt32(int32) Status
 		Compare(func() bool) Status
+		CompareBool(value bool) Status
 	}
 
 	statusCheckImpl struct {
@@ -72,7 +73,7 @@ func (e *statusCheckImpl) Compare(value func() bool) Status {
 
 // Compare evaluates a clousre and return the Status parsed from the
 // result string
-func (e *statusCheckImpl) CompareBoolean(value bool) Status {
+func (e *statusCheckImpl) CompareBool(value bool) Status {
 	if value {
 		return NewStatus(e.result)
 	}
