@@ -26,12 +26,12 @@ type (
 )
 
 // NewRange parse a string and returns a Range object
-// 10		< 0 or > 10, (outside the range of {0 .. 10})
+// 10			< 0 or > 10, (outside the range of {0 .. 10})
 // 10:		< 10, (outside {10 .. ∞})
 // ~:10		> 10, (outside the range of {-∞ .. 10})
 // 10:20	< 10 or > 20, (outside the range of {10 .. 20})
 // @10:20	≥ 10 and ≤ 20, (inside the range of {10 .. 20})
-func NewRange(threshold string) (Range, error) {
+func NewRange(value string) (Range, error) {
 	// Set defaults
 	r := &rangeImpl{
 		Start:  0,
@@ -39,32 +39,37 @@ func NewRange(threshold string) (Range, error) {
 		Invert: false,
 	}
 
-	threshold = strings.Trim(threshold, " \n\r")
+	value = strings.Trim(value, " \n\r")
+
+	// We can override a default value with an empty string and use 0 as range
+	if len(value) == 0 {
+		return r, nil
+	}
 
 	// Check for inverted semantics
-	if threshold[0] == '@' {
+	if value[0] == '@' {
 		r.Invert = true
-		threshold = threshold[1:]
+		value = value[1:]
 	}
 
 	// Parse lower limit
-	endPos := strings.Index(threshold, ":")
+	endPos := strings.Index(value, ":")
 	if endPos > -1 {
-		if threshold[0] == '~' {
+		if value[0] == '~' {
 			r.Start = math.Inf(-1)
 		} else {
-			min, err := strconv.ParseFloat(threshold[0:endPos], 64)
+			min, err := strconv.ParseFloat(value[0:endPos], 64)
 			if err != nil {
 				return nil, fmt.Errorf("failed to parse lower limit: %v", err)
 			}
 			r.Start = min
 		}
-		threshold = threshold[endPos+1:]
+		value = value[endPos+1:]
 	}
 
 	// Parse upper limit
-	if len(threshold) > 0 {
-		max, err := strconv.ParseFloat(threshold, 64)
+	if len(value) > 0 {
+		max, err := strconv.ParseFloat(value, 64)
 		if err != nil {
 			return nil, fmt.Errorf("failed to parse upper limit: %v", err)
 		}
