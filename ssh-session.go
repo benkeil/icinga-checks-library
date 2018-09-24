@@ -23,6 +23,9 @@ func NewSshSession(host string, port int, ssh_user string) (*ssh.Session, error)
 	if port <= 0 {
 		return nil, fmt.Errorf("ssh port is invalid: [%v]", port)
 	}
+	if len(ssh_user) == 0 {
+		return nil, fmt.Errorf("ssh user is missing: [%s]", ssh_user)
+	}
 
 	signer, err := createSigner(usr.HomeDir + "/.ssh/id_rsa")
 	if err != nil {
